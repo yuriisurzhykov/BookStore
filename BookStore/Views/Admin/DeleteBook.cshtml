@@ -1,0 +1,19 @@
+﻿@model BookStore.Models.Book
+@{
+    ViewBag.Title = "DeleteBook";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="text-danger text-center">Are you sure you want to delete this book?</h2>
+<h3 class="text-uppercase text-primary text-center">@Model.Name</h3>
+<p class="text-center">
+    @Model.Description
+</p>
+@using (Html.BeginForm(new { id = Model.Id}))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color text-center">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </div>
+}
+@Html.ActionLink("< Back", "Index", "Admin", new { @class="btn btn-outline"})

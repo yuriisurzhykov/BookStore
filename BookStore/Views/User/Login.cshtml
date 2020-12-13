@@ -1,0 +1,30 @@
+﻿@model BookStore.Models.User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.ErrorMessage != null && ViewBag.ErrorMessage != "")
+{
+    <div class="alert alert-dismissible alert-danger text-right top-right">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oh snap!</strong> @ViewBag.ErrorMessage
+    </div>
+}
+<h2>Login</h2>
+@using (Html.BeginForm("Login", "User", new { user = Model }, FormMethod.Post, new object { }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="exampleInputEmail1">Your login</label>
+        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", placeholder = "Login" } })
+        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Your login</label>
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type="password" } })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+@Html.ActionLink("Don't have account? Register!", "Register", "User", new object { }, new { @class = "btn btn-link" })

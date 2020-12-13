@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>
+
+    </title>
+    <script>
+        function add(title, author, cost, amount, total) {
+            var wrapper = document.getElementById('fieldListWrapper');
+            var copy = document.getElementById('box').getElementsByClassName('fieldWrapper')[0].cloneNode(true);
+            var label = copy.getElementsByClassName('fieldtitle')[0].innerHTML = title;
+            var value = copy.getElementsByClassName('fieldauthor')[0].innerHTML = description;
+            wrapper.appendChild(copy);
+        }
+    </script>
+</head>
+<body>
+    <div id="box" style="display:none;">
+        <div class="fieldWrapper">
+            <p class="fieldtitle"></p>
+            <p class="fieldauthor"></p>
+            <p class="fieldauthor"></p>
+            <p class="fieldauthor"></p>
+            <p class="fieldauthor"></p>
+        </div>
+    </div>
+</body>
+</html>

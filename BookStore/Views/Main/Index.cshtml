@@ -1,0 +1,22 @@
+﻿@model BookStore.Models.BooksViewModel
+@using BookStore.Utils;
+@using BookStore.Models;
+@{
+    ViewBag.Counter = 0;
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+    @foreach (var bookCur in Model.Books)
+    {
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@bookCur.Name</h5>
+                    <p class="card-text">@bookCur.Description</p>
+                    @Html.ActionLink("Add to cart", "AddToCart", "Cart", new { bookId = bookCur.Id }, new { @class= "btn btn-primary" })
+                    @*<a href="@Url.Action("AddToCart", "Cart", new { })" class="btn btn-primary">Add to cart</a>*@
+                </div>
+            </div>
+        </div>
+    }
+</div>

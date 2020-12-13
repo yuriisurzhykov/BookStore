@@ -1,0 +1,40 @@
+﻿@model BookStore.Utils.Payment.EmailContext
+@{
+    ViewBag.Title = "ConfirmPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Confirm Payment</h2>
+<div class="nav-justified center-block">
+    @using (Html.BeginForm("ConfirmPayment", "Cart", new { }, FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h3>Your address</h3>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Address.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Your city" } })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Address.Street, new { htmlAttributes = new { @class = "form-control", placeholder = "Your street" } })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.Address.Home, new { htmlAttributes = new { @class = "form-control", placeholder = "Your home" } })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.Address.Flat, new { htmlAttributes = new { @class = "form-control", placeholder = "Your flat" } })
+        </div>
+
+        <h3>Your email</h3>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Your name" } })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.Receiver, new { htmlAttributes = new { @class = "form-control", type = "email", placeholder = "E-mail" } })
+        </div>
+
+        <button type="submit" class="btn btn-success">Confirm</button>
+    }
+
+</div>

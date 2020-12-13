@@ -1,0 +1,72 @@
+﻿@using BookStore.Utils;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - приложение ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("BookStore", "Index", "Main", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Домашняя страница", "Index", "Main")</li>
+                    <li>@Html.ActionLink("Информация", "About", "Main")</li>
+                    <li>@Html.ActionLink("Связаться", "Contact", "Main")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (BookStore.Utils.SessionHelper.GetUser(Session) == null)
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    }
+                    else
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@BookStore.Utils.SessionHelper.GetUser(Session).Login<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+                                @if (SessionHelper.GetUser(Session).UserType == BookStore.Models.UserType.ADMIN)
+                                {
+                                    <li>@Html.ActionLink("Manage books", "Index", "Admin")</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+
+                @if (SessionHelper.IsUserLoggedIn(Session))
+                {
+                    <ul class="nav nav-pills navbar-right">
+                        <li class="active"><a href="@Url.Action("Index", "Cart")">Cart <span class="badge">@SessionHelper.GetCart(Session).GetTotalAmount()</span></a></li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p class="text-center">&copy; @DateTime.Now.Year - BookStore</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
